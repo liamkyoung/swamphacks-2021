@@ -20,10 +20,15 @@ app.stage.addChild(gameScene)
 let gameOverScene = new PIXI.Container()
 app.stage.addChild(gameOverScene)
 
+let style = new PIXI.TextStyle({
+  fontFamily: "Futura",
+  fontSize: 64,
+  fill: "white"
+})
 
 
-// let endMessage = new PIXI.Text("THE END", style)
-// gameOverScene.addChild(endMessage)
+let endMessage = new PIXI.Text("THE END", style)
+gameOverScene.addChild(endMessage)
 
 const loader = PIXI.Loader.shared
 loader.add('cat', 'res/cat.png')
