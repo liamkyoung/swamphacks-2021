@@ -14,15 +14,23 @@ document.body.appendChild(app.view)
 let sprites = {}
 let state
 
+let gameScene = new PIXI.Container()
+app.stage.addChild(gameScene)
+
+let gameOverScene = new PIXI.Container()
+app.stage.addChild(gameOverScene)
+
+
+
+// let endMessage = new PIXI.Text("THE END", style)
+// gameOverScene.addChild(endMessage)
+
 const loader = PIXI.Loader.shared
 loader.add('cat', 'res/cat.png')
 loader.load((loader, res) => {
   sprites.cat = new PIXI.Sprite(res.cat.texture)
-  app.stage.addChild(sprites.cat)
+  gameScene.addChild(sprites.cat)
 })
-
-app.renderer.backgroundColor = 0x333333;
-
 
 // Movement and Game Loop
 loader.onComplete.add(_ => {
@@ -80,7 +88,6 @@ loader.onComplete.add(_ => {
 
   // Set State and Start Ticker
   state = play
-  
   app.ticker.add(delta => gameLoop(delta))
   
   // Game Loop
@@ -90,12 +97,20 @@ loader.onComplete.add(_ => {
   
   // Velocity Updates
   function play(delta) {
+    // Check if Player ran into border wall
     let barrier = contain(sprites.cat, {x: 0, y: 0, width: WIDTH, height: HEIGHT})
+    // Update Position of Player
     sprites.cat.x += sprites.cat.vx
     sprites.cat.y += sprites.cat.vy
+
+    if (barrier !== undefined) {
+      state = end
+    }
   }
   
-// sprites.cat.x >= 0 && sprites.cat.x <= WIDTH - sprites.cat.width
-// sprites.cat.y >= 0 && sprites.cat.y <= HEIGHT - sprites.cat.height
+  function end() {
+    gameScene.visible = false;
+    gameOverScene.visible = true;
+  }
 
 })
