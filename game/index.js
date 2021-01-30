@@ -1,11 +1,11 @@
 import keyboard from './keyboard.js'
+import contain from './contain.js'
 
 let type = 'WebGL'
 if (!PIXI.utils.isWebGLSupported()) {
   type = 'Canvas'
 }
 PIXI.utils.sayHello(type)
-
 
 const WIDTH = 1280, HEIGHT = 720
 let app = new PIXI.Application({width: WIDTH, height: HEIGHT, antialias: true})
@@ -21,44 +21,47 @@ loader.load((loader, res) => {
   app.stage.addChild(sprites.cat)
 })
 
+app.renderer.backgroundColor = 0x333333;
+
+
+// Movement and Game Loop
 loader.onComplete.add(_ => {
-  let forward = keyboard('w')
-  let backwards = keyboard('s')
+  // Keyboard Buttons
+  let up = keyboard('w')
+  let down = keyboard('s')
   let left = keyboard('a')
   let right = keyboard('d')
   
+  // Initialize Sprite
   sprites.cat.x = WIDTH / 2
   sprites.cat.y = HEIGHT / 2
   sprites.cat.vx = 0
   sprites.cat.vy = 0
-  
-  // Forward Movement
-  forward.press = () => {
+
+  // Up Movement
+  up.press = () => {
     sprites.cat.vy = -5
     sprites.cat.vx = 0
-    //console.log('w')
   }
   
-  forward.release = () => {
-    if (!backwards.isDown && sprites.cat.vx === 0) {sprites.cat.vy = 0}
+  up.release = () => {
+    if (!down.isDown && sprites.cat.vx === 0) {sprites.cat.vy = 0}
   }
   
-  // Backwards Movement
-  backwards.press = () => {
+  // Down Movement
+  down.press = () => {
     sprites.cat.vy = 5
     sprites.cat.vx = 0
-    //console.log('s')
   }
   
-  backwards.release = () => {
-    if (!forward.isDown && sprites.cat.vx === 0) {sprites.cat.vy = 0}
+  down.release = () => {
+    if (!up.isDown && sprites.cat.vx === 0) {sprites.cat.vy = 0}
   }
   
   // Left Movement
   left.press = () => {
     sprites.cat.vx = -5
     sprites.cat.vy = 0
-    //console.log('a')
   }
   
   left.release = () => {
@@ -69,16 +72,16 @@ loader.onComplete.add(_ => {
   right.press = () => {
     sprites.cat.vx = 5
     sprites.cat.vy = 0
-    //console.log('d')
   }
   
   right.release = () => {
     if (!left.isDown && sprites.cat.vy === 0) {sprites.cat.vx = 0}
   }
+
+  // Set State and Start Ticker
   state = play
   
   app.ticker.add(delta => gameLoop(delta))
-  
   
   // Game Loop
   function gameLoop(delta) {
@@ -87,8 +90,12 @@ loader.onComplete.add(_ => {
   
   // Velocity Updates
   function play(delta) {
+    let barrier = contain(sprites.cat, {x: 0, y: 0, width: WIDTH, height: HEIGHT})
     sprites.cat.x += sprites.cat.vx
     sprites.cat.y += sprites.cat.vy
   }
   
+// sprites.cat.x >= 0 && sprites.cat.x <= WIDTH - sprites.cat.width
+// sprites.cat.y >= 0 && sprites.cat.y <= HEIGHT - sprites.cat.height
+
 })
