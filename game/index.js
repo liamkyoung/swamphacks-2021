@@ -113,15 +113,13 @@ function onButtonDown() {
   this.isdown = true
   this.alpha = 1
 
-  if (this.texture === PIXI.Texture.fromImage('res/play-button-down.png')) {
+  if (this.texture === playButtonDown) {
     this.texture = playButtonDown
-
     openingScene.visible = false
     gameScene.visible = true
     gameOverScene.visible = false
-  } else if (this.texture === PIXI.Texture.fromImage('res/play-again-button-down.png')) {
+  } else if (this.texture === playAgainDown) {
     this.texture = playAgainDown
-
     openingScene.visible = false
     gameScene.visible = true
     gameOverScene.visible = false
@@ -132,20 +130,10 @@ function onButtonDown() {
 
 function onButtonUp() {
   this.isdown = false
-  if (this.texture === PIXI.Texture.fromImage('res/play-button-down.png')) {
-    if (this.isOver) {
-      // texture to test
-      this.texture = PIXI.Texture.fromImage('res/play-button.png')
-    } else {
-      this.texture = PIXI.Texture.fromImage('res/play-button.png')
-    }
-
-  } else if (this.texture === PIXI.Texture.fromImage('res/play-again-button-down.png')) {
-    if (this.isOver) {
-      this.texture = PIXI.Texture.fromImage('res/play-again-button.png')
-    } else {
-      this.texture = PIXI.Texture.fromImage('res/play-again-button.png')
-    }
+  if (this.texture === playButtonDown) {
+    this.texture = PIXI.Texture.fromImage('res/play-button.png')
+  } else if (this.texture === playAgainDown) {
+    this.texture = PIXI.Texture.fromImage('res/play-again-button.png')
   }
 }
 
@@ -155,9 +143,9 @@ function onButtonOver() {
     return
   }
   if (this.texture === PIXI.Texture.fromImage('res/play-button.png')) {
-    this.texture = PIXI.Texture.fromImage('res/play-button-down.png')
+    this.texture = playButtonDown
   } else if (this.texture === PIXI.Texture.fromImage('res/play-again-button.png')) {
-    this.texture = PIXI.Texture.fromImage('res/play-again-button-down.png')
+    this.texture = playAgainDown
   }
 }
 
@@ -175,7 +163,21 @@ function onButtonOut() {
 }
 
 function loop () {
-  const player = new PIXI.Sprite(PIXI.Texture.fromImage('res/cat.png'))
+  let playerImages = []
+  let zombieImages = []
+
+  for (let i = 0; i < 20; i++) {
+    if (i <= 16) {
+      zombieImages.push(PIXI.Texture.from(`res/zombies/skeleton-move_${i}.png`))
+    }
+    playerImages.push(PIXI.Texture.from(`res/player/rifle/idle/survivor-idle_rifle_${i}.png`))
+  }
+
+  const player = new PIXI.AnimatedSprite(playerImages)
+  player.anchor.x = 0.5
+  player.anchor.y = 0.5
+  player.animationSpeed = 0.5
+  player.play()
   gameScene.addChild(player)
 
   socket.on('update', data => {
@@ -256,6 +258,7 @@ function loop () {
 
   // Velocity Updates
   function play(delta) {
+    player.play
     // Check if Player ran into border wall
     let barrier = contain(player, { x: 0, y: 0, width: WIDTH, height: HEIGHT })
     // Update Position of Player
@@ -263,6 +266,9 @@ function loop () {
     player.y += player.vy
 
     socket.emit('move', { id, x: player.x, y: player.y })
+
+    
+    //console.log(player.playing)
 
     if (barrier !== undefined) {
       state = end
