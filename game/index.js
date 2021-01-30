@@ -7,8 +7,8 @@ if (!PIXI.utils.isWebGLSupported()) {
 PIXI.utils.sayHello(type)
 
 
-const HEIGHT = 1280, WIDTH = 720
-let app = new PIXI.Application({width: HEIGHT, height: WIDTH, antialias: true})
+const WIDTH = 1280, HEIGHT = 720
+let app = new PIXI.Application({width: WIDTH, height: HEIGHT, antialias: true})
 document.body.appendChild(app.view)
 
 let sprites = {}
