@@ -13,6 +13,7 @@ let app = undefined
 let openingScene = undefined
 let gameScene = undefined
 let gameOverScene = undefined
+// let interactionManager = new PIXI.InteractionManager()
 
 // Initialize socket connection and receive our id and start the game
 const socket = io(config.server_address)
@@ -41,16 +42,34 @@ function initPIXI () {
   // Set up the PIXI app and add it to the html document as a Canvas
   app = new PIXI.Application({width: WIDTH, height: HEIGHT, antialias: true})
   document.body.appendChild(app.view)
+
 }
 
 function setup() {
+  // Animated Background Setup
+  
+  let backgroundImages = []
+
+  for (let i = 1; i < 170; i++) {
+    var zerofilled = ('0000'+i).slice(-4);
+    backgroundImages.push(PIXI.Texture.from(`res/BackgroundMenu/${zerofilled}.png`))
+  }
+  const background = new PIXI.AnimatedSprite(backgroundImages)
+  background.animationSpeed = 0.3
+  background.height = HEIGHT
+  background.width = WIDTH
+  
+  background.play()
+
   // Game State Container Setup
   openingScene = new PIXI.Container()
   openingScene.visible = true
   app.stage.addChild(openingScene)
+  openingScene.addChild(background)
 
   gameScene = new PIXI.Container()
   gameScene.visible = false
+  gameScene.interactive = true
   app.stage.addChild(gameScene)
 
   gameOverScene = new PIXI.Container()
@@ -64,7 +83,7 @@ function setup() {
     fill: 'white'
   })
 
-  let startMessage = new PIXI.Text('GAME TITLE', style)
+  let startMessage = new PIXI.Text('DEAD OPS ARCADE', style)
   startMessage.x = WIDTH / 2 - (startMessage.width / 2)
   startMessage.y = HEIGHT / 2 - (startMessage.height / 2) - 200
 
@@ -73,6 +92,7 @@ function setup() {
   endMessage.y = HEIGHT / 2 - (endMessage.height / 2)
 
 
+  
   openingScene.addChild(startMessage)
   gameOverScene.addChild(endMessage)
 
@@ -191,6 +211,8 @@ function loop () {
   player.play()
   gameScene.addChild(player)
 
+
+
   socket.on('update', data => {
     if (sprites.has(data.id)) {
       sprites.get(data.id).setTransform(data.x, data.y)
@@ -210,7 +232,7 @@ function loop () {
   player.y = HEIGHT / 2
   player.vx = 0
   player.vy = 0
-  // player.rotation = rotateToPoint(renderer.plugins.interaction.mouse.global.x, renderer.plugins.interaction.mouse.global.y, player.position.x, player.position.y)
+  
 
   detectInput(player)
 
@@ -225,20 +247,18 @@ function loop () {
 
   // Velocity Updates
   function play(delta) {
-    player.play
     // Check if Player ran into border wall
     // let barrier = contain(player, { x: 0, y: 0, width: WIDTH, height: HEIGHT })
     // Update Position of Player
     player.x += player.vx
     player.y += player.vy
+    player.rotation = rotateToPoint(app.renderer.plugins.interaction.mouse.global.x, app.renderer.plugins.interaction.mouse.global.y, player.x, player.y)
+
 
     socket.emit('move', { id, x: player.x, y: player.y })
 
-    
-    //console.log(player.playing)
-
     // if (barrier !== undefined) {
-      // state = end
+    //  state = end
     // }
   }
 
