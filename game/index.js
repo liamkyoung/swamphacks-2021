@@ -1,6 +1,8 @@
 import keyboard from './keyboard.js'
 import contain from './contain.js'
 
+import config from './config.js'
+
 let id = undefined
 const WIDTH = 1280, HEIGHT = 720
 
@@ -13,7 +15,7 @@ let gameScene = undefined
 let gameOverScene = undefined
 
 // Initialize socket connection and receive our id and start the game
-const socket = io('ws://localhost:3000')
+const socket = io(config.server_address)
 socket.on('init', data => {
   id = data
   console.log('connected as ' + id)
