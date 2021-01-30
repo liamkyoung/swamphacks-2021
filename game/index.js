@@ -1,4 +1,5 @@
 import keyboard from './keyboard.js'
+import contain from './contain.js'
 
 let id = undefined
 const WIDTH = 1280, HEIGHT = 720
@@ -37,26 +38,41 @@ function initPIXI () {
 }
 
 function loop () {
-  const player = new PIXI.Sprite(PIXI.Texture.fromImage('res/cat.png'))
-  app.stage.addChild(player)
+  let gameScene = new PIXI.Container()
+  app.stage.addChild(gameScene)
 
+  let gameOverScene = new PIXI.Container()
+  app.stage.addChild(gameOverScene)
+
+  let style = new PIXI.TextStyle({
+    fontFamily: "Futura",
+    fontSize: 64,
+    fill: "white"
+  })
+
+  let endMessage = new PIXI.Text("THE END", style)
+  gameOverScene.addChild(endMessage)
+
+  const player = new PIXI.Sprite(PIXI.Texture.fromImage('res/cat.png'))
+  gameScene.addChild(player)
+  
   socket.on('update', data => {
     if (sprites.has(data.id)) {
       sprites.get(data.id).setTransform(data.x, data.y)
     } else {
       sprites.set(data.id, new PIXI.Sprite(PIXI.Texture.fromImage('res/cat.png')))
-      app.stage.addChild(sprites.get(data.id))
+      gameScene.addChild(sprites.get(data.id))
       sprites.get(data.id).setTransform(data.x, data.y)
     }
   })
 
   socket.on('player_disconnect', data => {
-    app.stage.removeChild(sprites.get(data))
+    gameScene.removeChild(sprites.get(data))
     sprites.delete(data)
   })
 
-  let forward = keyboard('w')
-  let backwards = keyboard('s')
+  let up = keyboard('w')
+  let down = keyboard('s')
   let left = keyboard('a')
   let right = keyboard('d')
   
@@ -65,26 +81,24 @@ function loop () {
   player.vx = 0
   player.vy = 0
   
-  // Forward Movement
-  forward.press = () => {
+  // Up Movement
+  up.press = () => {
     player.vy = -5
     player.vx = 0
-    //console.log('w')
   }
   
-  forward.release = () => {
-    if (!backwards.isDown && player.vx === 0) {player.vy = 0}
+  up.release = () => {
+    if (!down.isDown && player.vx === 0) {player.vy = 0}
   }
   
-  // Backwards Movement
-  backwards.press = () => {
+  // Down Movement
+  down.press = () => {
     player.vy = 5
     player.vx = 0
-    //console.log('s')
   }
   
-  backwards.release = () => {
-    if (!forward.isDown && player.vx === 0) {player.vy = 0}
+  down.release = () => {
+    if (!up.isDown && player.vx === 0) {player.vy = 0}
   }
   
   // Left Movement
@@ -108,20 +122,33 @@ function loop () {
   right.release = () => {
     if (!left.isDown && player.vy === 0) {player.vx = 0}
   }
+
+  // Set State and Start Ticker
   state = play
-  
   app.ticker.add(delta => gameLoop(delta))
-  
   
   // Game Loop
   function gameLoop(delta) {
     state(delta)
   }
+  
   // Velocity Updates
   function play(delta) {
+    // Check if Player ran into border wall
+    let barrier = contain(player, {x: 0, y: 0, width: WIDTH, height: HEIGHT})
+    // Update Position of Player
     player.x += player.vx
     player.y += player.vy
-    socket.emit('move', {id, x: player.x, y: player.y})
-  }
-}
 
+    socket.emit('move', {id, x: player.x, y: player.y})
+    
+    if (barrier !== undefined) {
+      state = end
+    }
+  }
+  
+  function end() {
+    gameScene.visible = false;
+    gameOverScene.visible = true;
+  }
+})
