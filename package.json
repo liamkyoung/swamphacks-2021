@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "init": "npm install & npm run init_config",
+    "init_config": "echo export default { server_address: 'ws://localhost:3000' } > ./game/config.js",
     "start": "serve game",
     "starts": "nodemon server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
