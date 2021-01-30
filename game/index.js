@@ -1,5 +1,5 @@
-import keyboard from './keyboard.js'
 import contain from './contain.js'
+import detectInput from './detectInput.js'
 
 import config from './config.js'
 
@@ -197,57 +197,12 @@ function loop () {
     sprites.delete(data)
   })
 
-  const up = keyboard('w')
-  const down = keyboard('s')
-  const left = keyboard('a')
-  const right = keyboard('d')
-
   player.x = WIDTH / 2
   player.y = HEIGHT / 2
   player.vx = 0
   player.vy = 0
 
-  // Up Movement
-  up.press = () => {
-    player.vy = -5
-    player.vx = 0
-  }
-
-  up.release = () => {
-    if (!down.isDown && player.vx === 0) {player.vy = 0}
-  }
-
-  // Down Movement
-  down.press = () => {
-    player.vy = 5
-    player.vx = 0
-  }
-
-  down.release = () => {
-    if (!up.isDown && player.vx === 0) {player.vy = 0}
-  }
-
-  // Left Movement
-  left.press = () => {
-    player.vx = -5
-    player.vy = 0
-    // console.log('a')
-  }
-
-  left.release = () => {
-    if (!right.isDown && player.vy === 0) {player.vx = 0}
-  }
-
-  // Right Movement
-  right.press = () => {
-    player.vx = 5
-    player.vy = 0
-    // console.log('d')
-  }
-
-  right.release = () => {
-    if (!left.isDown && player.vy === 0) { player.vx = 0 }
-  }
+  detectInput(player)
 
   // Set State and Start Ticker
   state = play
