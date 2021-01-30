@@ -1,5 +1,15 @@
 import keyboard from './keyboard.js'
 
+const socket = io('ws://localhost:3000')
+
+socket.on('connect', _ => {
+  socket.send('hello')
+})
+
+socket.on('message', data => {
+  console.log(data)
+})
+
 const WIDTH = 1280, HEIGHT = 720
 
 // Determine if the web browser supports WebGL
