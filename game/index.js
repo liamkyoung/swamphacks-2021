@@ -164,6 +164,15 @@ function onButtonOut() {
   }
 }
 
+function rotateToPoint(mx, my, px, py){  
+  var self = this;
+  var dist_Y = my - py;
+  var dist_X = mx - px;
+  var angle = Math.atan2(dist_Y,dist_X);
+  //var degrees = angle * 180/ Math.PI;
+  return angle;
+}
+
 function loop () {
   let playerImages = []
   let zombieImages = []
@@ -201,6 +210,7 @@ function loop () {
   player.y = HEIGHT / 2
   player.vx = 0
   player.vy = 0
+  // player.rotation = rotateToPoint(renderer.plugins.interaction.mouse.global.x, renderer.plugins.interaction.mouse.global.y, player.position.x, player.position.y)
 
   detectInput(player)
 
@@ -217,7 +227,7 @@ function loop () {
   function play(delta) {
     player.play
     // Check if Player ran into border wall
-    let barrier = contain(player, { x: 0, y: 0, width: WIDTH, height: HEIGHT })
+    // let barrier = contain(player, { x: 0, y: 0, width: WIDTH, height: HEIGHT })
     // Update Position of Player
     player.x += player.vx
     player.y += player.vy
@@ -227,9 +237,9 @@ function loop () {
     
     //console.log(player.playing)
 
-    if (barrier !== undefined) {
-      state = end
-    }
+    // if (barrier !== undefined) {
+      // state = end
+    // }
   }
 
   function end() {
