@@ -47,25 +47,26 @@ function initPIXI () {
 
 function setup() {
   // Animated Background Setup
-  
-  let backgroundImages = []
+  const titleScreen = new PIXI.Sprite(PIXI.Texture.from('/res/deadops_title.png'))
 
-  for (let i = 1; i < 170; i++) {
-    var zerofilled = ('0000'+i).slice(-4);
-    backgroundImages.push(PIXI.Texture.from(`res/BackgroundMenu/${zerofilled}.png`))
-  }
-  const background = new PIXI.AnimatedSprite(backgroundImages)
-  background.animationSpeed = 0.3
-  background.height = HEIGHT
-  background.width = WIDTH
+  //let backgroundImages = []
+
+  //for (let i = 1; i < 170; i++) {
+  //  var zerofilled = ('0000'+i).slice(-4);
+  //  backgroundImages.push(PIXI.Texture.from(`res/BackgroundMenu/${zerofilled}.png`))
+  //}
+  //const background = new PIXI.AnimatedSprite(backgroundImages)
+  //background.animationSpeed = 0.3
+  //background.height = HEIGHT
+  //background.width = WIDTH
   
-  background.play()
+  //background.play()
 
   // Game State Container Setup
   openingScene = new PIXI.Container()
   openingScene.visible = true
   app.stage.addChild(openingScene)
-  openingScene.addChild(background)
+  openingScene.addChild(titleScreen)
 
   gameScene = new PIXI.Container()
   gameScene.visible = false
@@ -83,9 +84,6 @@ function setup() {
     fill: 'white'
   })
 
-  let startMessage = new PIXI.Text('DEAD OPS ARCADE', style)
-  startMessage.x = WIDTH / 2 - (startMessage.width / 2)
-  startMessage.y = HEIGHT / 2 - (startMessage.height / 2) - 200
 
   let endMessage = new PIXI.Text('THE END', style)
   endMessage.x = WIDTH / 2 - (endMessage.width / 2)
@@ -93,7 +91,6 @@ function setup() {
 
 
   
-  openingScene.addChild(startMessage)
   gameOverScene.addChild(endMessage)
 
 
