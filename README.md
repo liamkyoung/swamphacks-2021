@@ -1,7 +1,12 @@
 # swamphacks-2021
 
-Use the command `npm start` to launch the server and then navigate to the supplied address
+## Setup
 
+Download all the necessary node modules with `npm install`
+
+## Running
+
+Use the command `npm start` to launch the server and then navigate to the supplied address
 
 Press `Ctrl+C` to stop the server
 
