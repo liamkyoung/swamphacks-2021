@@ -1,6 +1,6 @@
 import keyboard from './keyboard.js'
 
-const HEIGHT = 1280, WIDTH = 720
+const WIDTH = 1280, HEIGHT = 720
 
 // Determine if the web browser supports WebGL
 let type = 'WebGL'
@@ -10,7 +10,7 @@ if (!PIXI.utils.isWebGLSupported()) {
 PIXI.utils.sayHello(type)
 
 // Set up the PIXI app and add it to the html document as a Canvas
-let app = new PIXI.Application({width: HEIGHT, height: WIDTH, antialias: true})
+let app = new PIXI.Application({width: WIDTH, height: HEIGHT, antialias: true})
 document.body.appendChild(app.view)
 
 // Object to contain all the sprites
