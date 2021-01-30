@@ -151,4 +151,4 @@ function loop () {
     gameScene.visible = false;
     gameOverScene.visible = true;
   }
-})
+}
