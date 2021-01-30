@@ -2,7 +2,7 @@
 
 ## Setup
 
-Download all the necessary node modules with `npm install`
+Run the command `npm run init`. YOU MUST INCLUDE THE `run` BEFORE THE INIT
 
 ## Running Client
 
