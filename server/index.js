@@ -1,12 +1,17 @@
-const server = require('http').createServer()
-const io = require('socket.io')(server, {cors: true, origins: ['http://localhost:5000']})
+const io = require('socket.io')({cors: {origin: '*'}})
 
 io.on('connection', socket => {
-  socket.send('connected!')
+  console.log(socket.id + ' connected')
 
-  socket.on('message', data => {
-    console.log(data)
+  socket.emit('init', socket.id)
+
+  socket.on('move', data => {
+    socket.broadcast.emit('update', data)
+  })
+
+  socket.on('disconnect', _ => {
+    socket.broadcast.emit('player_disconnect', socket.id)
   })
 })
 
-server.listen(3000)
+io.listen(3000)
