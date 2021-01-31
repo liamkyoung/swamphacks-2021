@@ -35,6 +35,7 @@ function initPIXI () {
   // Set up the PIXI app and add it to the html document as a Canvas
   app = new PIXI.Application({width: 1280, height: 720, antialias: true})
   document.body.appendChild(app.view)
+
 }
 
 function startGameHandler () {
@@ -54,16 +55,6 @@ function loop () {
   function gameLoop(delta) {
     currentState.loop()
   }
-
-  // // Velocity Updates
-  // function play(delta) {
-
-  //   // socket.emit('move', { player_id, x: player.x, y: player.y })
-  //   //console.log(player.playing)
-  //   // if (barrier !== undefined) {
-  //   //   state = end
-  //   // }
-  // }
 }
 
 function destroy () {

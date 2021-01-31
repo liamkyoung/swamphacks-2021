@@ -1,5 +1,14 @@
 import detectInput from '../detectInput.js'
 
+function rotateToPoint(mx, my, px, py){  
+  var self = this;
+  var dist_Y = my - py;
+  var dist_X = mx - px;
+  var angle = Math.atan2(dist_Y,dist_X);
+  //var degrees = angle * 180/ Math.PI;
+  return angle;
+}
+
 export default {
   init (app) {
     this.app = app
@@ -52,6 +61,10 @@ export default {
     // Update Position of Player
     this.player.x += this.player.vx
     this.player.y += this.player.vy
+
+    const mousePos = this.app.renderer.plugins.interaction.mouse.global
+
+    this.player.rotation = rotateToPoint(mousePos.x, mousePos.y, this.player.x, this.player.y)
   },
   remove () {
 
