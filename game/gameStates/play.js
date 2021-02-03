@@ -5,9 +5,10 @@ function rotateToPoint(mx, my, px, py){
   var dist_Y = my - py;
   var dist_X = mx - px;
   var angle = Math.atan2(dist_Y,dist_X);
-  //var degrees = angle * 180/ Math.PI;
   return angle;
 }
+
+const mousePos = this.app.renderer.plugins.interaction.mouse.global
 
 export default {
   init (app) {
@@ -15,12 +16,8 @@ export default {
     this.stage = new PIXI.Container()
 
     let playerImages = []
-    let zombieImages = []
   
     for (let i = 0; i < 20; i++) {
-      if (i <= 16) {
-        zombieImages.push(PIXI.Texture.from(`res/zombies/skeleton-move_${i}.png`))
-      }
       playerImages.push(PIXI.Texture.from(`res/player/rifle/idle/survivor-idle_rifle_${i}.png`))
     }
   
@@ -39,37 +36,16 @@ export default {
 
     this.stage.addChild(this.player)
     app.stage.addChild(this.stage)
-
-    // socket.on('update', data => {
-    //   if (sprites.has(data.player_id)) {
-    //     sprites.get(data.player_id).setTransform(data.x, data.y)
-    //   } else {
-    //     sprites.set(data.player_id, new PIXI.Sprite(PIXI.Texture.fromImage('res/cat.png')))
-    //     gameScene.addChild(sprites.get(data.player_id))
-    //     sprites.get(data.player_id).setTransform(data.x, data.y)
-    //   }
-    // })
-  
-    // socket.on('player_disconnect', data => {
-    //   gameScene.removeChild(sprites.get(data))
-    //   sprites.delete(data)
-    // })
   },
   loop () {
-    // Check if Player ran into border wall
-    //let barrier = contain(player, { x: 0, y: 0, width: WIDTH, height: HEIGHT })
-    // Update Position of Player
     this.player.x += this.player.vx
     this.player.y += this.player.vy
-
-    const mousePos = this.app.renderer.plugins.interaction.mouse.global
-
     this.player.rotation = rotateToPoint(mousePos.x, mousePos.y, this.player.x, this.player.y)
   },
   remove () {
-
+    this.app.stage.removeChild(this.stage)
   },
   destroy () {
-    
+    this.stage.destroy()
   }
 }
