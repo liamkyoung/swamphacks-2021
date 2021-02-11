@@ -1,25 +1,26 @@
 import gameStates from './gameStates/gameStates.js'
 
-import config from './config.js'
+// import config from './config.js'
 
-let player_id = undefined
+// let player_id = undefined
 
 // Object to contain all the sprites
 let currentState = undefined
 let app = undefined
 
 // Initialize socket connection and receive our id and start the game
-const socket = io(config.server_address)
-socket.on('init', data => {
-  player_id = data
-  console.log('connected as ' + player_id)
-  start()
-})
+// const socket = io(config.server_address)
+// socket.on('init', data => {
+//   player_id = data
+//   console.log('connected as ' + player_id)
+// })
+
+start()
 
 // starts the game
 function start () {
   initPIXI()
-  loop()
+  startUpdates()
   //destroy()
 }
 
@@ -38,13 +39,14 @@ function initPIXI () {
 
 }
 
+// Changes game state from the menu to the play state
 function startGameHandler () {
   gameStates.play.init(app)
   currentState.remove()
   currentState = gameStates.play
 }
 
-function loop () {
+function startUpdates () {
   gameStates.start.init(app, startGameHandler)
   currentState = gameStates.start
 
