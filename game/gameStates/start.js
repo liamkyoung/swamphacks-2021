@@ -1,3 +1,5 @@
+'use strict'
+
 export default {
   init (app, startGameHandler) {
     this.app = app
@@ -8,8 +10,8 @@ export default {
       fontSize: 64,
       fill: 'white'
     })
-    
-    let startMessage = new PIXI.Text('GAME TITLE', style)
+
+    const startMessage = new PIXI.Text('GAME TITLE', style)
     startMessage.x = app.renderer.width / 2 - (startMessage.width / 2)
     startMessage.y = app.renderer.height / 2 - (startMessage.height / 2) - 200
 
@@ -24,11 +26,11 @@ export default {
 
     playButton.on('pointerdown', onButtonDown).on('pointerup', onButtonUp)
 
-    function onButtonDown() {
+    function onButtonDown () {
       this.texture = playButtonDownTexture
     }
 
-    function onButtonUp() {
+    function onButtonUp () {
       startGameHandler()
       this.texture = playButtonTexture
     }
@@ -43,7 +45,7 @@ export default {
   remove () {
     this.app.stage.removeChild(this.stage)
   },
-  destroy() {
+  destroy () {
     this.stage.destroy()
   }
 }

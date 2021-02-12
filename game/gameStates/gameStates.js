@@ -1,3 +1,5 @@
+'use strict'
+
 import start from './start.js'
 import play from './play.js'
 

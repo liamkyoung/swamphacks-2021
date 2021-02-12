@@ -1,3 +1,5 @@
+'use strict'
+
 import keyboard from './keyboard.js'
 
 export default function (sprite) {
@@ -12,7 +14,7 @@ export default function (sprite) {
   }
 
   up.release = () => {
-    if (!down.isDown) {sprite.vy = 0}
+    if (!down.isDown) { sprite.vy = 0 }
   }
 
   // Down Movement
@@ -21,7 +23,7 @@ export default function (sprite) {
   }
 
   down.release = () => {
-    if (!up.isDown) {sprite.vy = 0}
+    if (!up.isDown) { sprite.vy = 0 }
   }
 
   // Left Movement
@@ -30,7 +32,7 @@ export default function (sprite) {
   }
 
   left.release = () => {
-    if (!right.isDown) {sprite.vx = 0}
+    if (!right.isDown) { sprite.vx = 0 }
   }
 
   // Right Movement

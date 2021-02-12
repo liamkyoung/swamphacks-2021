@@ -1,30 +1,34 @@
+'use strict'
+
 import detectInput from '../detectInput.js'
 
-function rotateToPoint(mx, my, px, py){  
-  var self = this;
-  var dist_Y = my - py;
-  var dist_X = mx - px;
-  var angle = Math.atan2(dist_Y,dist_X);
-  return angle;
+function rotateToPoint (mx, my, px, py) {
+  const distY = my - py
+  const distX = mx - px
+  const angle = Math.atan2(distY, distX)
+  return angle
 }
 
 export default {
+  init_assets () {
+    this.player_rifle_idle = []
+    this.player_rifle_move = []
+
+    for (let i = 0; i < 20; i++) {
+      this.player_rifle_idle.push(PIXI.Texture.from(`res/player/rifle/idle/survivor-idle_rifle_${i}.png`))
+    }
+    for (let i = 0; i < 20; i++) {
+      this.player_rifle_move.push(PIXI.Texture.from(`res/player/rifle/move/survivor-move_rifle_${i}.png`))
+    }
+  },
   init (app) {
     this.app = app
     this.stage = new PIXI.Container()
     this.mousePos = app.renderer.plugins.interaction.mouse.global
 
-    let player_rifle_idle = []
-    let player_rifle_move = []
+    this.init_assets()
 
-    for (let i = 0; i < 20; i++) {
-      player_rifle_idle.push(PIXI.Texture.from(`res/player/rifle/idle/survivor-idle_rifle_${i}.png`))
-    }
-    for (let i = 0; i < 20; i++) {
-      player_rifle_move.push(PIXI.Texture.from(`res/player/rifle/move/survivor-move_rifle_${i}.png`))
-    }
-
-    this.player = new PIXI.AnimatedSprite(player_rifle_idle)
+    this.player = new PIXI.AnimatedSprite(this.player_rifle_idle)
     this.player.anchor.x = 0.5
     this.player.anchor.y = 0.5
     this.player.animationSpeed = 0.5

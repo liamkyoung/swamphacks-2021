@@ -1,3 +1,5 @@
+'use strict'
+
 import gameStates from './gameStates/gameStates.js'
 
 // import config from './config.js'
@@ -5,8 +7,8 @@ import gameStates from './gameStates/gameStates.js'
 // let player_id = undefined
 
 // Object to contain all the sprites
-let currentState = undefined
-let app = undefined
+let currentState
+let app
 
 // Initialize socket connection and receive our id and start the game
 // const socket = io(config.server_address)
@@ -21,7 +23,7 @@ start()
 function start () {
   initPIXI()
   startUpdates()
-  //destroy()
+  // destroy()
 }
 
 // All the code to set up the PIXI canvas
@@ -34,9 +36,8 @@ function initPIXI () {
   PIXI.utils.sayHello(type)
 
   // Set up the PIXI app and add it to the html document as a Canvas
-  app = new PIXI.Application({width: 1280, height: 720, antialias: true})
+  app = new PIXI.Application({ width: 1280, height: 720, antialias: true })
   document.body.appendChild(app.view)
-
 }
 
 // Changes game state from the menu to the play state
@@ -54,12 +55,12 @@ function startUpdates () {
   app.ticker.add(delta => gameLoop(delta))
 
   // Game Loop
-  function gameLoop(delta) {
+  function gameLoop (delta) {
     currentState.loop()
   }
 }
 
-function destroy () {
-  gameStates.start.destroy()
-  gameStates.play.destroy()
-}
+// function destroy () {
+//   gameStates.start.destroy()
+//   gameStates.play.destroy()
+// }
