@@ -8,7 +8,7 @@
     "init_config": "echo export default { server_address: 'ws://localhost:3000' } > ./game/config.js",
     "start": "serve game",
     "starts": "nodemon server/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "standard"
   },
   "repository": {
     "type": "git",
@@ -27,9 +27,15 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.7",
-    "serve": "^11.3.2"
+    "serve": "^11.3.2",
+    "standard": "^16.0.3"
   },
   "standard": {
-    "globals": [ "PIXI" ]
+    "globals": [
+      "PIXI"
+    ],
+    "ignore": [
+      "game/libs/"
+    ]
   }
 }

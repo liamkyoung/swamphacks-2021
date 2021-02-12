@@ -1,4 +1,4 @@
-const io = require('socket.io')({cors: {origin: '*'}})
+const io = require('socket.io')({ cors: { origin: '*' } })
 
 io.on('connection', socket => {
   console.log(socket.id + ' connected')
