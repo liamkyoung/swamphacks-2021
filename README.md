@@ -16,6 +16,19 @@ Press `Ctrl+C` to stop the server
 
 Before commiting, please use `npm test` to check your code using standard.js
 
+# Dependencies 
+
+This project uses:
+- **pixi.js**: Graphics library
+- **socket.io**: Multiplayer functionality
+- **sqlite3**: Not yet implemented. Will be used for a scoreboard / account system
+- **standard**: Code style
+- **nodemon**: Development dependency, monitors server source and restarts if edited
+- **serve**: Development dependency to serve game files
+
+Dependencies planned to be added in the future:
+- **webpack**
+
 ---
 
 # To Do List
