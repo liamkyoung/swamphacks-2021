@@ -35,8 +35,8 @@ Dependencies planned to be added in the future:
 ## Client
 ### Player
 - [ ] adjust angle of player to point more accurately at the cursor.
-- [ ] Load all texture assets in `init()`
-- [ ] Layer foot and body texture assets on top of one another.
+- [x] Load all texture assets in `init()`
+- [x] Layer foot and body texture assets on top of one another.
 - [ ] Adjust assets based on action. Sidestepping, sprinting vs idle assets.
 ### Map
 - [ ] Create `map.js`

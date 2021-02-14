@@ -17,14 +17,15 @@ let app
 //   console.log('connected as ' + player_id)
 // })
 
-start()
+// PIXI init
+initPIXI()
 
-// starts the game
-function start () {
-  initPIXI()
-  startUpdates()
-  // destroy()
-}
+// Pre Init
+gameStates.play.preInit()
+
+// Start game when done loading
+PIXI.Loader.shared.onComplete.add(startUpdates)
+PIXI.Loader.shared.load()
 
 // All the code to set up the PIXI canvas
 function initPIXI () {

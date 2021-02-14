@@ -3,9 +3,10 @@
 import Player from '../player.js'
 
 export default {
+  preInit () {
+    Player.preInit()
+  },
   init (app) {
-    this.app = app
-
     Player.init(app)
   },
   loop () {

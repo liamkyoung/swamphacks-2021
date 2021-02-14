@@ -1,3 +1,5 @@
+'use strict'
+
 function keyboard (value) {
   const key = {}
   key.value = value
