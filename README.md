@@ -28,20 +28,3 @@ This project uses:
 
 Dependencies planned to be added in the future:
 - **webpack**
-
----
-
-# To Do List
-## Client
-### Player
-- [ ] adjust angle of player to point more accurately at the cursor.
-- [x] Load all texture assets in `init()`
-- [x] Layer foot and body texture assets on top of one another.
-- [ ] Adjust assets based on action. Sidestepping, sprinting vs idle assets.
-### Map
-- [ ] Create `map.js`
-- [ ] Invent how to store map data and load it
-### index.js
-- [ ] Clean up index
-## Server
-- Currently not in development
