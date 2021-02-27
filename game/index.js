@@ -20,9 +20,6 @@ let app
 // PIXI init
 initPIXI()
 
-// Pre Init (temporarily disabled because of spritesheets)
-// gameStates.play.preInit()
-
 PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST
 
 PIXI.Loader.shared.add('res/spritesheet.json')

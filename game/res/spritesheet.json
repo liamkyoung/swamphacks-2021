@@ -1,8 +1,26 @@
 {"frames": {
 
+"boulder.png":
+{
+	"frame": {"x":0,"y":0,"w":103,"h":102},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":103,"h":102},
+	"sourceSize": {"w":103,"h":102},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"grass_tile.png":
+{
+	"frame": {"x":0,"y":102,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"anchor": {"x":0.5,"y":0.5}
+},
 "player_unarmed_1.png":
 {
-	"frame": {"x":0,"y":0,"w":16,"h":16},
+	"frame": {"x":0,"y":230,"w":16,"h":16},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
@@ -11,7 +29,7 @@
 },
 "player_unarmed_2.png":
 {
-	"frame": {"x":16,"y":0,"w":16,"h":16},
+	"frame": {"x":16,"y":230,"w":16,"h":16},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
@@ -20,7 +38,7 @@
 },
 "player_unarmed_3.png":
 {
-	"frame": {"x":32,"y":0,"w":16,"h":16},
+	"frame": {"x":32,"y":230,"w":16,"h":16},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
@@ -29,7 +47,7 @@
 },
 "tile.png":
 {
-	"frame": {"x":0,"y":16,"w":64,"h":64},
+	"frame": {"x":48,"y":230,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
@@ -44,8 +62,8 @@
 	"version": "1.0",
 	"image": "spritesheet.png",
 	"format": "RGBA8888",
-	"size": {"w":64,"h":80},
+	"size": {"w":128,"h":294},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:913884e5233fe1f92f10450aef916501:062bac2ef58f457f6bddc198d7014ba6:729adc6043343cfda41c447ce8f464d6$"
+	"smartupdate": "$TexturePacker:SmartUpdate:a3bd26bff50bc702e2833ce0267757ee:4d311ad71d15860b2f8bc9a263e889d2:729adc6043343cfda41c447ce8f464d6$"
 }
 }
