@@ -6,6 +6,8 @@ export default {
   init (app) {
     this.spritesheet = PIXI.Loader.shared.resources['res/spritesheet.json'].spritesheet
 
+    this.app = app
+
     this.backgroundTiling = new PIXI.TilingSprite(this.spritesheet.textures['grass_tile.png'])
     this.backgroundTiling.width = 2000000
     this.backgroundTiling.height = 2000000
@@ -23,20 +25,21 @@ export default {
     app.stage.addChild(this.backgroundTiling)
     app.stage.addChild(this.boulder)
 
-    Player.init(app)
+    this.player = new Player()
+    this.player.add(app.stage)
   },
   loop () {
-    Player.loop()
-    Player.checkCollisionCircle(this.boulder.x, this.boulder.y, this.boulder.colRadius)
+    this.player.loop(this.app.renderer)
+    this.player.checkCollisionCircle(this.boulder.x, this.boulder.y, this.boulder.colRadius)
   },
   remove () {
     this.app.stage.removeChild(this.boulder)
     this.app.stage.removeChild(this.backgroundTiling)
-    Player.remove()
+    this.player.remove(this.app.stage)
   },
   destroy () {
     this.boulder.destroy()
     this.backgroundTiling.destroy()
-    Player.destroy()
+    this.player.destroy()
   }
 }

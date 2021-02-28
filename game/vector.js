@@ -5,24 +5,40 @@ function Vector (x, y) {
   this.y = y
 }
 
+Vector.prototype.add = function (x, y) {
+  this.x += x
+  this.y += y
+  return this
+}
+
+Vector.prototype.addVec = function (vec) {
+  this.x += vec.x
+  this.y += vec.y
+  return this
+}
+
 Vector.prototype.sub = function (x, y) {
   this.x -= x
   this.y -= y
+  return this
 }
 
 Vector.prototype.subVec = function (vec) {
   this.x -= vec.x
   this.y -= vec.y
+  return this
 }
 
 Vector.prototype.mul = function (n) {
   this.x *= n
   this.y *= n
+  return this
 }
 
 Vector.prototype.div = function (n) {
   this.x /= n
   this.y /= n
+  return this
 }
 
 Vector.prototype.mag = function () {
