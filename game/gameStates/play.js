@@ -18,6 +18,7 @@ export default {
     this.boulder.height = 300
     this.boulder.x = 300
     this.boulder.y = 300
+    this.boulder.colRadius = 150
 
     app.stage.addChild(this.backgroundTiling)
     app.stage.addChild(this.boulder)
@@ -26,12 +27,15 @@ export default {
   },
   loop () {
     Player.loop()
+    Player.checkCollisionCircle(this.boulder.x, this.boulder.y, this.boulder.colRadius)
   },
   remove () {
+    this.app.stage.removeChild(this.boulder)
+    this.app.stage.removeChild(this.backgroundTiling)
     Player.remove()
   },
   destroy () {
-    this.environment.destroy()
+    this.boulder.destroy()
     this.backgroundTiling.destroy()
     Player.destroy()
   }

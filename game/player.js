@@ -1,5 +1,7 @@
 'use strict'
 
+import Vector from './vector.js'
+
 export default {
   init (app) {
     this.app = app
@@ -49,9 +51,13 @@ export default {
     this.player.animationSpeed = 0.05
     this.player.width = 80
     this.player.height = 80
+    this.player.colRadius = 40
     this.player.rotation = -1.5708
     this.player.vx = 0
     this.player.vy = 0
+    this.player.lastX = 0
+    this.player.lastY = 0
+    this.player.colliding = false
 
     this.app.stage.addChild(this.coordinateText)
     this.app.stage.addChild(this.player)
@@ -85,12 +91,23 @@ export default {
 
     this.player.x += this.player.vx
     this.player.y += this.player.vy
+
     this.player.rotation = Math.atan2(this.mousePos.y - (this.app.renderer.height / 2), this.mousePos.x - (this.app.renderer.width / 2))
 
-    this.coordinateText.text = `X: ${this.player.x}, Y: ${this.player.y}`
+    this.coordinateText.text = `X: ${Math.trunc(this.player.x)}, Y: ${Math.trunc(this.player.y)}`
 
     this.coordinateText.pivot.set(-this.player.x + (this.app.renderer.width / 2), -this.player.y + (this.app.renderer.height / 2))
     this.app.stage.pivot.set(this.player.x - (this.app.renderer.width / 2), this.player.y - (this.app.renderer.height / 2))
+  },
+  checkCollisionCircle (x, y, r) {
+    const distanceVector = new Vector(x - this.player.x, y - this.player.y)
+    if (distanceVector.mag() <= this.player.colRadius + r) {
+      const overlap = distanceVector.mag() - (r + this.player.colRadius)
+      const direction = distanceVector.copy().normalize()
+      direction.mul(overlap)
+      this.player.x += direction.x
+      this.player.y += direction.y
+    }
   },
   remove () {
     this.app.stage.removeChild(this.coordinateText)
