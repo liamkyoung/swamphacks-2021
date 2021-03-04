@@ -70,7 +70,7 @@
             </struct>
         </struct>
         <key>shapePadding</key>
-        <uint>0</uint>
+        <uint>2</uint>
         <key>jpgQuality</key>
         <uint>80</uint>
         <key>pngOptimizationLevel</key>
@@ -175,7 +175,7 @@
             <key>heuristicMask</key>
             <false/>
             <key>defaultPivotPoint</key>
-            <point_f>0,0</point_f>
+            <point_f>0.5,0.5</point_f>
             <key>writePivotPoints</key>
             <true/>
         </struct>
@@ -211,9 +211,14 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">player_unarmed_1.png</key>
-            <key type="filename">player_unarmed_2.png</key>
-            <key type="filename">player_unarmed_3.png</key>
+            <key type="filename">player_stationary/player_stationary0.png</key>
+            <key type="filename">player_stationary/player_stationary1.png</key>
+            <key type="filename">player_walking/player_walking0.png</key>
+            <key type="filename">player_walking/player_walking1.png</key>
+            <key type="filename">player_walking/player_walking2.png</key>
+            <key type="filename">player_walking/player_walking3.png</key>
+            <key type="filename">player_walking/player_walking4.png</key>
+            <key type="filename">player_walking/player_walking5.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -222,9 +227,9 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>4,4,8,8</rect>
+                <rect>6,6,11,11</rect>
                 <key>scale9Paddings</key>
-                <rect>4,4,8,8</rect>
+                <rect>6,6,11,11</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -246,12 +251,11 @@
         </map>
         <key>fileList</key>
         <array>
-            <filename>player_unarmed_1.png</filename>
-            <filename>player_unarmed_2.png</filename>
-            <filename>player_unarmed_3.png</filename>
             <filename>tile.png</filename>
             <filename>boulder.png</filename>
             <filename>grass_tile.png</filename>
+            <filename>player_walking</filename>
+            <filename>player_stationary</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
