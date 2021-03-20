@@ -7,7 +7,6 @@
     "init": "npm install & npm run init_config",
     "init_config": "echo export default { server_address: 'ws://localhost:3000' } > ./game/config.js",
     "start": "serve game",
-    "starts": "nodemon server/index.js",
     "test": "standard"
   },
   "repository": {
@@ -22,11 +21,9 @@
   "homepage": "https://github.com/liamkyoung/swamphacks-2021#readme",
   "dependencies": {
     "pixi.js": "^5.3.7",
-    "socket.io": "^3.1.0",
     "sqlite3": "^5.0.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.7",
     "serve": "^11.3.2",
     "standard": "^16.0.3"
   },
